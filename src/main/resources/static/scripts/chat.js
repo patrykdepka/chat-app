@@ -7,6 +7,8 @@ function connect(event) {
     if (username) {
         usernameFormContainer.classList.add('hidden');
         chatPage.classList.remove('hidden');
+    } else {
+        validateUsernameForm();
     }
 
     event.preventDefault();

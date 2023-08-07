@@ -17,7 +17,8 @@
     <div id="usernameFormContainer" class="username-form-container">
         <div class="username-form-header">Type your username to start chatting</div>
         <form id="usernameForm" name="usernameForm" class="username-form">
-            <input type="text" id="usernameInput" name="usernameInput" class="form-control" placeholder="Username" required>
+            <input type="text" id="usernameInput" name="usernameInput" class="form-control" placeholder="Username">
+            <div id="usernameInputErrorMessage" class="error-message" style="display: none;">Username cannot be empty</div>
             <button type="submit" class="btn btn-primary">Start</button>
         </form>
     </div>
@@ -29,5 +30,6 @@
     </div>
 
     <script th:src="@{/scripts/chat.js}"></script>
+    <script th:src="@{/scripts/validation.js}"></script>
 </body>
 </html>
