@@ -1,0 +1,42 @@
+.hidden {
+    display: none;
+}
+
+.username-form-container {
+    width: 25%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-right: auto;
+    margin-left: auto;
+    padding: 8px;
+    text-align: center;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+.username-form-header {
+    font-size: 32px;
+}
+
+.error-message {
+    text-align: left;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.username-form button {
+    margin-top: 8px;
+}
+
+.container {
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
