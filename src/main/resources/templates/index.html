@@ -24,12 +24,25 @@
     </div>
 
     <div id="chatPage" class="hidden">
-        <div class="container">
-            <h1>Connected</h1>
+        <div class="chat-container">
+            <div class="messages-container">
+                <div class="messages-header">Chat</div>
+                <div id="messagesSpinner">
+                    <div class="spinner-border text-primary connecting" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <ul id="messageArea" class="messages-area"></ul>
+                <form id="messageForm" class="message-form">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Aa">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <script th:src="@{/scripts/chat.js}"></script>
     <script th:src="@{/scripts/validation.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
 </body>
 </html>
