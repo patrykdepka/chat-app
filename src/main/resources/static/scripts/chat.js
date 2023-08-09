@@ -12,6 +12,8 @@ const url = 'ws://localhost:8080/ws';
 let client = null;
 let sessionId = '';
 let username = '';
+let messageSound = new Audio('/sounds/message.wav');
+let soundOn = true;
 
 function connect(event) {
     username = document.getElementById('usernameInput').value.trim();
@@ -63,6 +65,10 @@ function onMessageReceived(response) {
     const chatMessage = JSON.parse(response.body);
 
     createMessage(chatMessage);
+
+    if (soundOn && chatMessage.sender !== username) {
+        messageSound.play();
+    }
 }
 
 function createMessage(chatMessage) {
@@ -103,4 +109,18 @@ function createMessage(chatMessage) {
 
     messageArea.appendChild(chatMessageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+}
+
+function turnSoundOnOff() {
+    soundOn = !soundOn;
+
+    let speakerIcon = document.getElementById('speakerIcon');
+
+    if (soundOn) {
+        speakerIcon.classList.remove('fa-volume-xmark');
+        speakerIcon.classList.add('fa-volume-high');
+    } else {
+        speakerIcon.classList.remove('fa-volume-high');
+        speakerIcon.classList.add('fa-volume-xmark');
+    }
 }
