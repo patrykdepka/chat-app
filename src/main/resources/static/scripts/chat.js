@@ -31,6 +31,8 @@ function connect(event) {
 }
 
 function onConnected() {
+    client.subscribe('/app/topic/public.previousMessages', getPreviousMessages);
+
     client.subscribe('/topic/public', onMessageReceived);
     let chatMessage = {
         sender: 'Server',
@@ -38,6 +40,8 @@ function onConnected() {
         type: 'JOIN'
     }
     client.send('/app/ws', {}, JSON.stringify(chatMessage));
+
+    client.subscribe('/topic/public.deleteOldestMessage', deleteOldestMessage);
 
     messagesSpinner.classList.add('hidden');
 }
@@ -123,4 +127,17 @@ function turnSoundOnOff() {
         speakerIcon.classList.remove('fa-volume-high');
         speakerIcon.classList.add('fa-volume-xmark');
     }
+}
+
+function getPreviousMessages(response) {
+    const chatMessages = JSON.parse(response.body);
+
+    for (const chatMessage of chatMessages) {
+        createMessage(chatMessage);
+    }
+}
+
+function deleteOldestMessage(response) {
+    let message = document.getElementById(response.body);
+    message.remove();
 }
