@@ -14,6 +14,7 @@ let sessionId = '';
 let username = '';
 let messageSound = new Audio('/sounds/message.wav');
 let soundOn = true;
+let numberOfOnlineUsers = 0;
 
 function connect(event) {
     username = document.getElementById('usernameInput').value.trim();
@@ -152,16 +153,25 @@ function deleteOldestMessage(response) {
 function getOnlineUsers(response) {
     let onlineUsers = new Map(Object.entries(JSON.parse(response.body)));
 
+    numberOfOnlineUsers = onlineUsers.size;
+    let usersHeader = document.getElementById('usersHeader');
+    usersHeader.textContent = 'Users (' + numberOfOnlineUsers + ')';
     onlineUsers.forEach(createUserTab)
 }
 
 function addUser(response) {
     const newUser = JSON.parse(response.body);
 
+    numberOfOnlineUsers++;
+    let usersHeader = document.getElementById('usersHeader');
+    usersHeader.textContent = 'Users (' + numberOfOnlineUsers + ')';
     createUserTab(newUser);
 }
 
 function deleteUser(response) {
+    numberOfOnlineUsers--;
+    let usersHeader = document.getElementById('usersHeader');
+    usersHeader.textContent = 'Users (' + numberOfOnlineUsers + ')';
     document.getElementById(response.body).remove();
 }
 
