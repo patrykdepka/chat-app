@@ -42,13 +42,14 @@
 }
 
 .messages-container {
-    width: 100%;
+    width: 70%;
     position: relative;
 }
 
 .messages-header {
     text-align: center;
     font-size: 32px;
+    border-right: 2px solid gray;
     border-top-left-radius: 8px;
 }
 
@@ -68,6 +69,7 @@
     padding-left: 0;
     background-color: white;
     border-top: 2px solid gray;
+    border-right: 2px solid gray;
     border-bottom: 2px solid gray;
 }
 
@@ -109,9 +111,38 @@
 .message-form {
     display: flex;
     padding: 8px;
+    border-right: 2px solid gray;
     border-bottom-left-radius: 8px;
 }
 
 .message-form button {
     margin-left: 8px;
+}
+
+.users-container {
+    width: 30%;
+    position: relative;
+}
+
+.users-header {
+    text-align: center;
+    font-size: 32px;
+    border-top-right-radius: 8px;
+}
+
+.users-area {
+    list-style-type: none;
+    height: calc(100vh - 256px);
+    overflow-y: scroll;
+    margin-bottom: 0;
+    padding-left: 0;
+    background-color: white;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+.user-tab {
+    padding: 8px;
+    background-color: lightgray;
+    border-bottom: 1px solid gray;
 }
