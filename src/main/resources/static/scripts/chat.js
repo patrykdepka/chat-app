@@ -5,6 +5,8 @@ let messageArea = document.getElementById('messageArea');
 let messagesSpinner = document.getElementById('messagesSpinner');
 let messageForm = document.getElementById('messageForm');
 messageForm.addEventListener('submit', sendMessage, true);
+let messageInput = document.getElementById('messageInput');
+messageInput.addEventListener('keyup', startTyping, true);
 let usersArea = document.getElementById('usersArea');
 let usersSpinner = document.getElementById('usersSpinner');
 
@@ -15,6 +17,7 @@ let username = '';
 let messageSound = new Audio('/sounds/message.wav');
 let soundOn = true;
 let numberOfOnlineUsers = 0;
+let timeoutId;
 
 function connect(event) {
     username = document.getElementById('usernameInput').value.trim();
@@ -50,6 +53,8 @@ function onConnected() {
 
     client.subscribe('/topic/public.deleteUser', deleteUser);
 
+    client.subscribe('/topic/public.typing', onTyping);
+
     messagesSpinner.classList.add('hidden');
     usersSpinner.classList.add('hidden');
 }
@@ -59,6 +64,8 @@ function onError(error) {
 }
 
 function sendMessage(event) {
+    clearTimeout(timeoutId);
+    stopTyping();
     let messageInput = document.getElementById('messageInput');
     if (client && messageInput.value) {
         let chatMessage = {
@@ -186,5 +193,35 @@ function createUserTab(user) {
     usernameElement.appendChild(usernameText);
     userElement.appendChild(usernameElement);
 
+    let typingInfoElement = document.createElement('span');
+    typingInfoElement.id = 'typing';
+    typingInfoElement.classList.add('hidden');
+    let typingText = document.createTextNode(' is typing a message...');
+    typingInfoElement.appendChild(typingText);
+    userElement.appendChild(typingInfoElement);
+
     usersArea.appendChild(userElement);
+}
+
+function startTyping(event) {
+    if (event.key !== 'Enter') {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => { stopTyping(); }, 2000);
+        client.send("/topic/public.typing", {}, JSON.stringify({ sessionId: sessionId, typing: true }));
+    }
+}
+
+function stopTyping() {
+    client.send("/topic/public.typing", {}, JSON.stringify({ sessionId: sessionId, typing: false }));
+}
+
+function onTyping(response) {
+    let typingResponse = JSON.parse(response.body);
+
+    let userTab = document.getElementById(typingResponse.sessionId);
+    if (typingResponse.typing) {
+        userTab.lastElementChild.classList.remove('hidden');
+    } else {
+        userTab.lastElementChild.classList.add('hidden');
+    }
 }

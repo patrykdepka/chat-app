@@ -90,14 +90,14 @@
     border-bottom: 1px solid gray;
 }
 
-.username {
+.chat-message .username {
     width: 50%;
     display: inline-block;
     text-align: left;
     font-weight: bold;
 }
 
-.date {
+.chat-message .date {
     width: 50%;
     display: inline-block;
     text-align: right;
@@ -145,4 +145,9 @@
     padding: 8px;
     background-color: lightgray;
     border-bottom: 1px solid gray;
+}
+
+.user-tab .username {
+    text-align: left;
+    font-weight: bold;
 }
