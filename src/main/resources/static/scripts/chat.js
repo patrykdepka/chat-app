@@ -36,6 +36,10 @@ function connect(event) {
 }
 
 function onConnected() {
+    var urlArray = socket._transport.url.split('/');
+    var index = urlArray.length - 2;
+    sessionId = urlArray[index];
+
     client.subscribe('/app/topic/public.previousMessages', getPreviousMessages);
 
     client.subscribe('/app/topic/public.onlineUsers', getOnlineUsers);
@@ -97,10 +101,6 @@ function createMessage(chatMessage) {
 
     if (chatMessage.sender === 'Server') {
         chatMessageElement.classList.add('server-message');
-
-        if (chatMessage.type === 'JOIN') {
-            sessionId = chatMessage.sessionId;
-        }
     }
 
     if (chatMessage.type === 'CHAT') {
