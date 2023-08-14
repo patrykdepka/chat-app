@@ -10,7 +10,7 @@ messageInput.addEventListener('keyup', startTyping, true);
 let usersArea = document.getElementById('usersArea');
 let usersSpinner = document.getElementById('usersSpinner');
 
-const url = 'ws://localhost:8080/ws';
+var socket = null;
 let client = null;
 let sessionId = '';
 let username = '';
@@ -25,7 +25,8 @@ function connect(event) {
     if (username) {
         usernameFormContainer.classList.add('hidden');
         chatPage.classList.remove('hidden');
-        client = Stomp.client(url);
+        socket = new SockJS('/ws');
+        client = Stomp.over(socket);
         client.connect({ username: username }, onConnected, onError);
     } else {
         validateUsernameForm();
