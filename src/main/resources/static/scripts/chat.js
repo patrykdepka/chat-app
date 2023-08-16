@@ -65,7 +65,17 @@ function onConnected() {
 }
 
 function onError(error) {
-    alert('Could not connect to WebSocket server. Please refresh this page to try again!');
+    $('#connectionErrorModal').modal('show');
+
+    while (messageArea.firstChild) {
+        messageArea.removeChild(messageArea.firstChild);
+    }
+    while (usersArea.firstChild) {
+        usersArea.removeChild(usersArea.firstChild);
+    }
+
+    messagesSpinner.classList.remove('hidden');
+    usersSpinner.classList.remove('hidden');
 }
 
 function sendMessage(event) {
