@@ -9,6 +9,8 @@ let messageInput = document.getElementById('messageInput');
 messageInput.addEventListener('keyup', startTyping, true);
 let usersArea = document.getElementById('usersArea');
 let usersSpinner = document.getElementById('usersSpinner');
+let disconnectForm = document.getElementById('disconnectForm');
+disconnectForm.addEventListener('submit', disconnect, true);
 
 var socket = null;
 let client = null;
@@ -235,4 +237,8 @@ function onTyping(response) {
     } else {
         userTab.lastElementChild.classList.add('hidden');
     }
+}
+
+function disconnect() {
+    client.disconnect();
 }
