@@ -1,5 +1,6 @@
 # chat-app
 A servlet-based simple chat application. There is not any authentication. You just set your username and start chatting.
+![chat](https://github.com/patrykdepka/chat-app/assets/133974709/c05532be-9019-4aa7-8439-f0633d29a8c7)
 ## Description
 * User can:
     * can set username
